@@ -1,0 +1,19 @@
+version: '2'
+services:
+    clientcontrol-app:
+        image: clientcontrol
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://clientcontrol-mysql:3306/clientcontrol?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=clientcontrol-elasticsearch:9300
+        ports:
+            - 8080:8080
+    clientcontrol-mysql:
+        extends:
+            file: mysql.yml
+            service: clientcontrol-mysql
+    clientcontrol-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: clientcontrol-elasticsearch
